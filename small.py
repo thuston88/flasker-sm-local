@@ -5,6 +5,7 @@ from flask_migrate import Migrate
 from werkzeug.security import generate_password_hash, check_password_hash 
 from datetime import date
 from webforms import LoginForm, UserForm, PasswordForm, NamerForm, SearchForm
+# from webforms import SearchForm
 from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
 # from flask_ckeditor import CKEditor
 from werkzeug.utils import secure_filename
@@ -96,7 +97,6 @@ def admin():
 		return redirect(url_for('dashboard'))
 
 
-"""
 # Create Search Function
 @app.route('/search', methods=["POST"])
 def search():
@@ -113,7 +113,6 @@ def search():
 		 form=form,
 		 searched = post.searched,
 		 posts = posts)
-"""
 
 
 # Create Login Page

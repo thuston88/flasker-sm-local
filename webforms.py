@@ -10,7 +10,6 @@ class SearchForm(FlaskForm):
 	searched = StringField("Searched", validators=[DataRequired()])
 	submit = SubmitField("Submit")
 
-
 # Create Login Form
 class LoginForm(FlaskForm):
 	username = StringField("Username", validators=[DataRequired()])
