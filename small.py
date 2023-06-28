@@ -4,8 +4,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from werkzeug.security import generate_password_hash, check_password_hash 
 from datetime import date
-from webforms import LoginForm, UserForm, PasswordForm, NamerForm, SearchForm
-from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
+from webforms import LoginForm, UserForm, SearchForm
+from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user, fresh_login_required
 # from flask_ckeditor import CKEditor
 from werkzeug.utils import secure_filename
 import uuid as uuid
@@ -27,11 +27,14 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 app.config['SECRET_KEY'] = "my super secret key that no one is supposed to know"
 # Initialize The Database
 
+"""
 UPLOAD_FOLDER = 'static/images/'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+"""
+
 
 db = SQLAlchemy(app)
-migrate = Migrate(app, db)
+# migrate = Migrate(app, db)
 
 # Create Model
 class Users(db.Model, UserMixin):
@@ -40,15 +43,7 @@ class Users(db.Model, UserMixin):
 	name = db.Column(db.String(200), nullable=False)
 	email = db.Column(db.String(120), nullable=False, unique=True)
 	favorite_color = db.Column(db.String(120))
-	# about_author = db.Column(db.Text(), nullable=True)
-	# date_added = db.Column(db.DateTime, default=datetime.utcnow)
-	# profile_pic = db.Column(db.String(), nullable=True)
-
-	# Do some password stuff!
 	password_hash = db.Column(db.String(128))
-	# User Can Have Many Posts 
-	# posts = db.relationship('Posts', backref='poster')
-
 
 	@property
 	def password(self):
@@ -65,8 +60,11 @@ class Users(db.Model, UserMixin):
 	def __repr__(self):
 		return '<Name %r>' % self.name
 
+
+"""
 with app.app_context():
     db.create_all()
+"""
 
 
 # Flask_Login Stuff
@@ -113,6 +111,11 @@ def search():
 		 form=form,
 		 searched = post.searched,
 		 posts = posts)
+
+
+# logout user on init
+def init_app():
+    logout_user()
 
 
 # Create Login Page
@@ -286,14 +289,15 @@ def add_user():
 # Create a route decorator
 @app.route('/')
 def index():
-	first_name = "Tom"
-	stuff = "This is bold text"
+    init_app()
+    first_name = "Tom"
+    stuff = "This is bold text"
 
-	favorite_pizza = ["Pepperoni", "Cheese", "Mushrooms", 41]
-	return render_template("index.html", 
-		first_name=first_name,
-		stuff=stuff,
-		favorite_pizza = favorite_pizza)
+    favorite_pizza = ["Pepperoni", "Cheese", "Mushrooms", 41]
+    return render_template("index.html", 
+        first_name=first_name,
+        stuff=stuff,
+        favorite_pizza = favorite_pizza)
 
 
 @app.route('/user/<name>')
