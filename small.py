@@ -5,7 +5,6 @@ from flask_migrate import Migrate
 from werkzeug.security import generate_password_hash, check_password_hash 
 from datetime import date
 from webforms import LoginForm, UserForm, PasswordForm, NamerForm, SearchForm
-# from webforms import SearchForm
 from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user
 # from flask_ckeditor import CKEditor
 from werkzeug.utils import secure_filename
@@ -85,6 +84,7 @@ def base():
 	form = SearchForm()
 	return dict(form=form)
 
+
 # Create Admin Page
 @app.route('/admin')
 @login_required
@@ -123,7 +123,7 @@ def login():
 		user = Users.query.filter_by(username=form.username.data).first()
 		if user:
 			# Check the hash
-			if check_password_hash(user.password_hash, form.password.data, "scrypt"):
+			if check_password_hash(user.password_hash, form.password.data):
 				login_user(user)
 				flash("Login Succesfull!!")
 				return redirect(url_for('dashboard'))
@@ -197,6 +197,7 @@ def dashboard():
 	return render_template('dashboard.html')
 
 
+"""
 @app.route('/posts/delete/<int:id>')
 @login_required
 def delete_post(id):
@@ -229,15 +230,19 @@ def delete_post(id):
 		# Grab all the posts from the database
 		posts = Posts.query.order_by(Posts.date_posted)
 		return render_template("posts.html", posts=posts)
+"""
 
 
+"""
 @app.route('/posts')
 def posts():
 	# Grab all the posts from the database
 	posts = Posts.query.order_by(Posts.date_posted)
 	return render_template("posts.html", posts=posts)
+"""
 
 
+"""
 @app.route('/posts/<int:id>')
 def post(id):
 	post = Posts.query.get_or_404(id)
@@ -270,8 +275,10 @@ def edit_post(id):
 		flash("You Aren't Authorized To Edit This Post...")
 		posts = Posts.query.order_by(Posts.date_posted)
 		return render_template("posts.html", posts=posts)
+"""
 
 
+"""
 # Add Post Page
 @app.route('/add-post', methods=['GET', 'POST'])
 #@login_required
@@ -296,8 +303,10 @@ def add_post():
 
 	# Redirect to the webpage
 	return render_template("add_post.html", form=form)
+"""
 
 
+"""
 # Json Thing
 @app.route('/date')
 def get_current_date():
@@ -308,6 +317,7 @@ def get_current_date():
 	}
 	return favorite_pizza
 	#return {"Date": date.today()}
+"""
 
 
 @app.route('/delete/<int:id>')
@@ -370,6 +380,7 @@ def update(id):
 
 
 
+"""
 #def index():
 #	return "<h1>Hello World!</h1>"
 
@@ -381,6 +392,7 @@ def update(id):
 #title
 #trim
 #striptags
+"""
 
 
 @app.route('/user/add', methods=['GET', 'POST'])
@@ -472,6 +484,7 @@ def test_pw():
 		form = form)
 
 
+"""
 # Create Name Page
 @app.route('/name', methods=['GET', 'POST'])
 def name():
@@ -486,8 +499,10 @@ def name():
 	return render_template("name.html", 
 		name = name,
 		form = form)
+"""
 
 
+"""
 # Create a Blog Post model
 class Posts(db.Model):
 	id = db.Column(db.Integer, primary_key=True)
@@ -498,4 +513,5 @@ class Posts(db.Model):
 	slug = db.Column(db.String(255))
 	# Foreign Key To Link Users (refer to primary key of the user)
 	poster_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+"""
 

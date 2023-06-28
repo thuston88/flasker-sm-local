@@ -6,3 +6,14 @@ git commit -m "<comment>"
 
 git push -u origin master
 
+git checkout master | reduction
+
+git branch
+
+git checkout -b <new branch>
+
+git log
+
+git checkout <COMMIT HASH>
+
+
