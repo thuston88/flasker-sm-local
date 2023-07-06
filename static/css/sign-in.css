@@ -1,17 +1,6 @@
-h1 {
-	color: darkblue;
-	font-size:60px;
-}
-
 html,
 body {
-	background: #f4f4f4;
-    height: 100%;
-}
-
-#demo{
-	font-size: 12px;
-	color: darkblue;
+  height: 100%;
 }
 
 .form-signin {

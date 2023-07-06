@@ -27,11 +27,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 app.config['SECRET_KEY'] = "my super secret key that no one is supposed to know"
 # Initialize The Database
 
-"""
-UPLOAD_FOLDER = 'static/images/'
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-"""
-
 
 db = SQLAlchemy(app)
 # migrate = Migrate(app, db)
@@ -70,7 +65,7 @@ with app.app_context():
 # Flask_Login Stuff
 login_manager = LoginManager()
 login_manager.init_app(app)
-login_manager.login_view = 'login'
+login_manager.login_view = 'E_login'
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -134,7 +129,7 @@ def login():
 				flash("Wrong Password - Try Again!")
 		else:
 			flash("That User Doesn't Exist! Try Again...")
-	return render_template('login.html', form=form)
+	return render_template("E_login.html", form=form)
 
 
 # Create Logout Page
@@ -143,7 +138,7 @@ def login():
 def logout():
 	logout_user()
 	flash("You Have Been Logged Out!  Thanks For Stopping By...")
-	return redirect(url_for('login'))
+	return redirect(url_for('E_login'))
 
 
 # Create Dashboard Page
