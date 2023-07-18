@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{# 
+{% for message in get_flashed_messages() %}
+
+	<div class="alert alert-warning alert-dismissible fade show" role="alert">
+	  {{ message }}
+	  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+
+{% endfor %}
+#}
+
+    <h1 class="text-center">Select Page</h1>
+	<br/><br/>
+
+<div class="container text-center">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+        <div class="input-group mb-3">
+        <select class="form-select" id="inputGroupInstitution">
+            <option selected>Choose...</option>
+            <option value="I1">Bank</option>
+            <option value="I2">Watch</option>
+            <option value="I3">Computer</option>
+        </select>
+        <!--
+        <label class="input-group-text" for="inputGroupInstitution">Options</label>
+        -->
+        </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="container text-center">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+        <div class="input-group mb-3">
+        <select class="form-select" id="inputGroupAcctNo">
+            <option selected>Choose...</option>
+            <option value="N1">1234</option>
+            <option value="N2">FACE123</option>
+            <option value="N3">9999</option>
+        </select>
+        <!--
+        <label class="input-group-text" for="inputGroupAcctNo">Options</label>
+        -->
+        </div>
+
+    </div>
+  </div>
+</div>
+
+
+<div class="container text-center">
+  <div class="row">
+    <div class="col-md-6 offset-md-3">
+        <div class="input-group mb-3">
+        <select class="form-select" id="inputGroupAcctType">
+            <option selected>Choose...</option>
+            <option value="T1">Checking</option>
+            <option value="T2">Savings</option>
+            <option value="T3">Online</option>
+        </select>
+        <!--
+        <label class="input-group-text" for="inputGroupAcctType">Options</label>
+        -->
+        </div>
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+

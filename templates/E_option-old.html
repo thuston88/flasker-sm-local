@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% for message in get_flashed_messages() %}
+
+	<div class="alert alert-warning alert-dismissible fade show" role="alert">
+	  {{ message }}
+	  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+
+{% endfor %}
+
+    <h1 class="text-center">Option Page</h1>
+	<br/><br/>
+
+<div class="list-group">
+  <a href="#" class="list-group-item list-group-item-action">View an Account</a>
+
+  <a href="#" class="list-group-item list-group-item-action list-group-item-primary">View All Accounts</a>
+  <a href="#" class="list-group-item list-group-item-action list-group-item-secondary">Add an Account</a>
+  <a href="#" class="list-group-item list-group-item-action list-group-item-success">Update an Account</a>
+  <a href="#" class="list-group-item list-group-item-action list-group-item-danger">Delete an Account</a>
+</div>
+
+
+{% endblock %}

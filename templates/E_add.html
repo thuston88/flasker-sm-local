@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{#
+{% for message in get_flashed_messages() %}
+
+	<div class="alert alert-warning alert-dismissible fade show" role="alert">
+	  {{ message }}
+	  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+
+{% endfor %}
+#}
+
+    <h1 class="text-center">Account Page</h1>
+	<br/><br/>
+
+<form>
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-4 mb-3">
+                <label for="anInstitution" class="form-label control-label">Institution</label>
+                <input type="text" class="form-control" id="anInstitution" placeholder="Bank">
+            </div>
+
+            <div class="col-md-3 offset-md-1 mb-3">
+                 <label for="anType" class="form-label control-label">Account Type</label>
+                <input type="text" class="form-control" id="anType" placeholder="Checking">
+            </div>
+
+            <div class="col-md-3 offset-md-1 mb-3">
+                 <label for="anBal" class="form-label">Account Balance</label>
+                <input type="text" class="form-control" id="anBal" placeholder="5201.33">
+            </div>
+
+        </div>
+        <hr>
+
+        <div class="row">
+
+            <div class="col-md-3 mb-3">
+                <label for="anNumber" class="form-label">Account No.</label>
+                <input type="text" class="form-control" id="anNumber" placeholder="9999-34">
+            </div>
+
+            <div class="col-md-3 offset-md-1 mb-3">
+                 <label for="anWhy" class="form-label">Account Why</label>
+                <input type="text" class="form-control" id="anWhy" placeholder="Next time">
+            </div>
+
+            <div class="col-md-4 offset-md-1 mb-3">
+                 <label for="anApp" class="form-label">Account App</label>
+                <input type="text" class="form-control" id="anApp" placeholder="www.bank.com">
+            </div>
+
+        </div>
+        <hr>
+
+        <div class="row">
+
+            <div class="col-md-3 mb-3">
+                <label for="anID" class="form-label">User ID</label>
+                <input type="text" class="form-control" id="anID" placeholder="thuston">
+            </div>
+
+            <div class="col-md-7 offset-md-2 mb-3">
+                 <label for="anComm" class="form-label">Comment</label>
+                <input type="text" class="form-control" id="anComm" placeholder="this is a test account">
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div class="col-md-3 mb-3 mt-3 border-top border-light">
+                 <label for="anPW" class="form-label mt-3">Password</label>
+                <input type="text" class="form-control" id="anPW" placeholder="4forever7654">
+            </div>
+
+            <div class="col-md-7 offset-md-2 mb-3 mt-3 border-top border-secondary">
+                <label for="anEx" class="form-label mt-3">Extra</label>
+                <input type="text" class="form-control" id="anEx" placeholder="account was closed in 1984">
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="d-grid col-6 mx-auto">
+        <button type="submit" class="btn btn-success btn-lg">Submit</button>
+    </div>
+
+</form>
+
+{% endblock %}
+
