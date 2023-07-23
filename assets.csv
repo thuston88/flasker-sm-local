@@ -1,0 +1,11 @@
+id,institution,acct_type,acct_number,acct_balance,access_type,access_app,acct_id,acct_pw,comment,extra
+1,CNB,checking,4431234,2340.5,,,,,,
+2,CNB,savings,21-2345,13200,,,,,,
+3,iMAC,computer,,,,,thh,eiMac,,
+4,iWatch,watch,,,,,tthh,4654,,
+5,NYL,annuity,455445,28450,,,,,,
+6,NYL,life ins,47788,500000,,,,,cash value: 325000.00,
+7,NYL,life ins,1200005-03,120000,,,,,cash value: 75000.00,
+8,NML,longterm care,18181818,600000,,,,,3500 / mo,
+9,Air,computer,,,,,thh,eiAir,,
+10,HP Linux,computer,,,,,thth,eHPLinux,,
