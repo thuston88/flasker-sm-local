@@ -3,13 +3,13 @@
 {% block content %}
 
 {% for message in get_flashed_messages() %}
-	
+
 	<div class="alert alert-warning alert-dismissible fade show" role="alert">
 	  {{ message }}
 	  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 	</div>
 
-	
+
 {% endfor %}
 
 
@@ -22,15 +22,12 @@
     {{ current_user.name }}
   </div>
   <div class="card-body">
-   
+
     <p class="card-text">
 
 <div class="container">
 	<div class="row">
 		<div class="col-8">
-
-    <strong>Name:</strong>
-	{{ current_user.name }}<br/>
 
 	<strong>Username:</strong>
 	{{ current_user.username }}<br/>
@@ -38,10 +35,7 @@
 	<strong>User Id:</strong>
 	{{ current_user.id }}<br/>
 
-	<strong>Email:</strong>
-	{{ current_user.email }}<br/>
 
-    	
     </p>
     <a href="{{ url_for('logout')}}" class="btn btn-secondary btn-sm">Logout</a>
 
@@ -50,7 +44,7 @@
     <a href="{{ url_for('delete', id=current_user.id)}}" class="btn btn-danger btn-sm">Delete</a>
     <br/><br/>
 
-    
+
 	</div>
 	</div>
 	</div>
@@ -58,9 +52,9 @@
 
   </div>
 </div>
-	
 
-	
+
+
 <br/>
 
 <div class="card">
@@ -72,29 +66,14 @@
   	<form action="/dashboard" method="POST" enctype="multipart/form-data">
 		{{ form.hidden_tag() }}
 
-		{{ form.name.label(class="form-label") }}
-
-		{{ form.name(class="form-control", value=name_to_update.name) }}
-		<br/>
-
 		{{ form.username.label(class="form-label") }}
 
 		{{ form.username(class="form-control", value=name_to_update.username) }}
 		<br/>
 
-		{{ form.email.label(class="form-label") }}
 
-		{{ form.email(class="form-control", value=name_to_update.email) }}
-		<br/>
-		
-		{{ form.favorite_color.label(class="form-label") }}
-
-		{{ form.favorite_color(class="form-control", value=name_to_update.favorite_color) }}
-		<br/>
-
-		
 		{{ form.submit(class="btn btn-secondary btn-sm") }}
-			
+
 	</form>
 
 </div>
