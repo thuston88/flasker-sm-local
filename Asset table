@@ -1,0 +1,21 @@
+from rich.console import Console
+from rich.table import Table
+
+table = Table(title="Assets")
+
+table.add_column("Institution", justify="right", style="cyan", no_wrap=True)
+table.add_column("Account Type", justify="right", style="cyan", no_wrap=True)
+table.add_column("Account No", justify="right", style="cyan", no_wrap=True)
+table.add_column("Account Bal", justify="right", style="cyan", no_wrap=True)
+table.add_column("Access Type", justify="right", style="cyan", no_wrap=True)
+table.add_column("Access App", justify="right", style="cyan", no_wrap=True)
+table.add_column("User Id", justify="right", style="cyan", no_wrap=True)
+table.add_column("Password", justify="right", style="cyan", no_wrap=True)
+table.add_column("Comment", justify="right", style="cyan", no_wrap=True)
+table.add_column("Extra", justify="right", style="cyan", no_wrap=True)
+
+
+table.add_row(p.institution, p.acct_type, p.acct_number, p.acct_balance, p.access_type, p.access_app, p.acct_id, p.acct_pw, p.comment, p.extra)
+
+console = Console()
+console.print(table)

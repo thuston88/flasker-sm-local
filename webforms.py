@@ -32,17 +32,19 @@ class SelectForm(FlaskForm):
 	submit = SubmitField("Submit")
 
 
-"""
 # Create a Posts Form
 class PostForm(FlaskForm):
-	title = StringField("Title", validators=[DataRequired()])
-	#content = StringField("Content", validators=[DataRequired()], widget=TextArea())
-	content = CKEditorField('Content', validators=[DataRequired()])
-	
-	#author = StringField("Author")
-	slug = StringField("Slug", validators=[DataRequired()])
+	institution = StringField("Institution")
+	acct_type = StringField("Account Type")
+	acct_number = StringField("Account Number")
+	acct_balance = StringField("Account Balance")
+	access_type = StringField("Access Type")
+	access_app = StringField("Access App")
+	acct_id = StringField("Account User Id")
+	acct_pw = StringField("Account Password")
+	comment = StringField("Comment")
+	extra = StringField("Extra")
 	submit = SubmitField("Submit")
-"""
 
 
 """

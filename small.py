@@ -11,6 +11,9 @@ from werkzeug.utils import secure_filename
 import uuid as uuid
 import os
 
+from rich.console import Console
+from rich.table import Table
+from rich import print
 
 # Create a Flask Instance
 app = Flask(__name__)
@@ -191,6 +194,128 @@ def logout():
 
 ##########################
 # New E- roiutes
+##########################
+
+@app.route('/posts/delete/<int:id>')
+@login_required
+def delete_post(id):
+    post_to_delete = Posts.query.get_or_404(id)
+    id = current_user.id
+    if id == post_to_delete.poster.id or id == 14:
+        try:
+            db.session.delete(post_to_delete)
+            db.session.commit()
+
+            # Return a message
+            flash("Blog Post Was Deleted!")
+
+            # Grab all the posts from the database
+            posts = Posts.query.order_by(Posts.date_posted)
+            return render_template("posts.html", posts=posts)
+
+
+        except:
+            # Return an error message
+            flash("Whoops! There was a problem deleting post, try again...")
+
+            # Grab all the posts from the database
+            posts = Posts.query.order_by(Posts.date_posted)
+            return render_template("posts.html", posts=posts)
+    else:
+        # Return a message
+        flash("You Aren't Authorized To Delete That Post!")
+
+        # Grab all the posts from the database
+        posts = Posts.query.order_by(Posts.date_posted)
+        return render_template("posts.html", posts=posts)
+
+@app.route('/posts')
+def posts():
+    # Grab all the posts from the database
+    posts = Assets.query.order_by(Assets.id)
+    # table of assets
+    table = Table(title="Assets")
+
+    table.add_column("Id", justify="right", style="cyan", no_wrap=True)
+    table.add_column("Institution", justify="right", style="cyan", no_wrap=True)
+    table.add_column("Account Type", justify="right", style="cyan", no_wrap=True)
+    table.add_column("Account No", justify="right", style="cyan", no_wrap=True)
+    table.add_column("Account Bal", justify="right", style="cyan", no_wrap=True)
+    table.add_column("Access Type", justify="right", style="cyan", no_wrap=True)
+    table.add_column("Access App", justify="right", style="cyan", no_wrap=True)
+    table.add_column("User Id", justify="right", style="cyan", no_wrap=True)
+    table.add_column("Password", justify="right", style="cyan", no_wrap=True)
+    table.add_column("Comment", justify="right", style="cyan", no_wrap=True)
+    table.add_column("Extra", justify="right", style="cyan", no_wrap=True)
+
+    for p in posts:
+        sid = str(p.id)
+        table.add_row(sid, p.institution, p.acct_type, p.acct_number, p.acct_balance, p.access_type, p.access_app, p.acct_id, p.acct_pw, p.comment, p.extra)
+
+    console = Console()
+    console.print(table)
+
+    return render_template("posts.html", posts=posts)
+
+@app.route('/posts/<int:id>')
+def post(id):
+    post = Posts.query.get_or_404(id)
+    return render_template('post.html', post=post)
+
+@app.route('/posts/edit/<int:id>', methods=['GET', 'POST'])
+@login_required
+def edit_post(id):
+    post = Posts.query.get_or_404(id)
+    form = PostForm()
+    if form.validate_on_submit():
+        post.title = form.title.data
+        #post.author = form.author.data
+        post.slug = form.slug.data
+        post.content = form.content.data
+        # Update Database
+        db.session.add(post)
+        db.session.commit()
+        flash("Post Has Been Updated!")
+        return redirect(url_for('post', id=post.id))
+    
+    if current_user.id == post.poster_id or current_user.id == 14:
+        form.title.data = post.title
+        #form.author.data = post.author
+        form.slug.data = post.slug
+        form.content.data = post.content
+        return render_template('edit_post.html', form=form)
+    else:
+        flash("You Aren't Authorized To Edit This Post...")
+        posts = Posts.query.order_by(Posts.date_posted)
+        return render_template("posts.html", posts=posts)
+
+# Add Post Page
+@app.route('/add-post', methods=['GET', 'POST'])
+#@login_required
+def add_post():
+    form = PostForm()
+
+    if form.validate_on_submit():
+        poster = current_user.id
+        post = Posts(title=form.title.data, content=form.content.data, poster_id=poster, slug=form.slug.data)
+        # Clear The Form
+        form.title.data = ''
+        form.content.data = ''
+        #form.author.data = ''
+        form.slug.data = ''
+
+        # Add post data to database
+        db.session.add(post)
+        db.session.commit()
+
+        # Return a Message
+        flash("Blog Post Submitted Successfully!")
+
+    # Redirect to the webpage
+    return render_template("add_post.html", form=form)
+
+##########################
+# posts
 ##########################
 
 
