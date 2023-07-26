@@ -11,29 +11,71 @@
 
 <br/>
 {% for post in posts %}
-<div class="shadow p-3 mb-5 bg-body rounded">
-	<h2><a href="{{ url_for('post', id=post.id)}}">{{ post.title }}</a></h2>
-	<small>By: {{ post.poster.name }}<br/>
-	{{ post.date_posted }}</small> <br/><br/>
+{#
+        {{ post.id }},
+        {{ post.institution }},
+        {{ post.acct_type }},
+        {{ post.acct_number }},
+        {{ post.acct_balance }},
+        {{ post.access_type }},
+        {{ post.access_app }},
+        {{ post.acct_id }},
+        {{ post.acct_pw }},
+        {{ post.comment }},
+        {{ post.extra }}
+#}
 
-	{{ post.content|safe }}
-	<br/><br/>
-	<a href="{{ url_for('post', id=post.id)}}" class="btn btn-outline-secondary btn-sm">View Post</a>
-	
-	{% if post.poster_id == current_user.id or current_user.id == 14 %}
-	<a href="{{ url_for('edit_post', id=post.id)}}" class="btn btn-outline-secondary btn-sm">Edit Post</a>
-
-	<a href="{{ url_for('delete_post', id=post.id)}}" class="btn btn-outline-danger btn-sm">Delete Post</a>
-
-	{% endif %}
-
-	<br/><br/>
-</div>
-<br/>
+    <br/>
 {% endfor %}
 
+<h1 class="text-center">View All</h1>
 
+<div id="table"></div>
 
+<script>
+    new gridjs.Grid({
+        columns: [
+            {id: 'sid', name: 'Rec',
+            formatter: (function (cell) {return gridjs.html('-' + cell + '-');  })
+            },
+            {id: 'institution', name: 'Asset' },
+            {id: 'acct_type', name: 'Type' },
+            {id: 'acct_number', name: 'Number' },
+            {id: 'acct_balance', name: 'Balance', width: '115px',
+                formatter: (function (cell) { if (cell === 'None') {return gridjs.html(''); } else {return gridjs.html(cell);}}) },
+            {id: 'access_type', name: 'Type', width: '90px' },
+            {id: 'access_app', name: 'App', width: '90px',
+                formatter: (function (cell) { if (cell === 'None') {return gridjs.html(''); } else {return gridjs.html(cell);}}) },
+            {id: 'acct_id', name: 'User' },
+            {id: 'acct_pw', name: 'PW' },
+            {id: 'comment', name: 'Comment' },
+            {id: 'extra', name: 'Extra', width: '125px' },
+        ],
+        data: [
+            {% for post in posts %}
 
+                {
+                    sid: '{{ post.id }}',
+                    institution: '{{ post.institution }}',
+                    acct_type: '{{ post.acct_type }}',
+                    acct_number: '{{ post.acct_number }}',
+                    acct_balance: '{{ post.acct_balance }}',
+                    access_type: '{{ post.access_type }}',
+                    access_app: '{{ post.access_app }}',
+                    acct_id: '{{ post.acct_id }}',
+                    acct_pw: '{{ post.acct_pw }}',
+                    comment: '{{ post.comment }}',
+                    extra: '{{ post.extra }}'
+                },
+            {% endfor %}
+        ],
+        search: false,
+        sort: false,
+        resizable: true,
+        pagination: true,
+        fixedHeader: true,
+    }).render(document.getElementById('table'));
+
+</script>
 
 {% endblock %}
