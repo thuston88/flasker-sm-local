@@ -4,7 +4,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import date
-from webforms import LoginForm, UserForm, SearchForm
+from webforms import LoginForm, UserForm, SearchForm, SelectForm, SimpleForm
 from flask_login import UserMixin, login_user, LoginManager, login_required, logout_user, current_user, fresh_login_required
 # from flask_ckeditor import CKEditor
 from werkzeug.utils import secure_filename
@@ -85,6 +85,112 @@ def base():
     return dict(form=form)
 
 ####################################
+# return list of institutions and id's 
+
+def get_all_spots():
+    instit_second_elements = set()
+    type_second_elements = set()
+    no_second_elements = set()
+    instit_tuples = []
+    type_tuples = []
+    no_tuples = []
+
+    spots = Assets.query
+    ####
+    table = Table(title="Institutions")
+    table.add_column("Id", justify="right", style="cyan", no_wrap=True)
+    table.add_column("Institution", justify="right", style="cyan", no_wrap=True)
+    table.add_column("Account Type", justify="right", style="cyan", no_wrap=True)
+    table.add_column("Account Number", justify="right", style="cyan", no_wrap=True)
+
+    instit_list = []
+    type_list = []
+    no_list = []
+
+    for p in spots:
+        sid = str(p.id)
+        table.add_row(sid, p.institution, p.acct_type, p.acct_number)
+
+        instit_tup = (sid, p.institution)
+        instit_list.append(instit_tup)
+
+        type_tup = (sid, p.acct_type)
+        type_list.append(type_tup)
+
+        no_tup = (sid, p.acct_number)
+        no_list.append(no_tup)
+
+    console = Console()
+    console.print(table)
+
+    # print(f'{spots_list=}')
+    # print(f'spots is: {spots}')
+
+    for ctr, tuple_element in enumerate(instit_list):
+        # print(f'{tuple_element=}')
+        _, instit_second_element = tuple_element  # Unpacking the tuple to get the second element
+        if instit_second_element not in instit_second_elements:
+            instit_second_elements.add(instit_second_element)
+            tup = (ctr,tuple_element[1])
+            # print(f'{tup=}')
+            # result_tuples.append(tuple_element)
+            instit_tuples.append(tup)
+
+    for ctr, tuple_element in enumerate(type_list):
+        # print(f'{tuple_element=}')
+        _, type_second_element = tuple_element  # Unpacking the tuple to get the second element
+        if type_second_element not in type_second_elements:
+            type_second_elements.add(type_second_element)
+            tup = (ctr,tuple_element[1])
+            # print(f'{tup=}')
+            # result_tuples.append(tuple_element)
+            type_tuples.append(tup)
+
+    for ctr, tuple_element in enumerate(no_list):
+        # print(f'{tuple_element=}')
+        _, no_second_element = tuple_element  # Unpacking the tuple to get the second element
+        if no_second_element not in no_second_elements:
+            no_second_elements.add(no_second_element)
+            tup = (ctr,tuple_element[1])
+            # print(f'{tup=}')
+            # result_tuples.append(tuple_element)
+            no_tuples.append(tup)
+
+    print(f'{instit_tuples=}')
+    print(f'{type_tuples=}')
+    print(f'{no_tuples=}')
+
+    return [instit_tuples, type_tuples, no_tuples]
+    ####
+    # return spots
+
+####################################
+
+@app.route('/simple', methods=['GET', 'POST'])
+def simple():
+
+    form = SimpleForm()
+
+    all_choices = get_all_spots()
+
+    instit_choices = all_choices[0]
+
+    type_choices = all_choices[1]
+
+    no_choices = all_choices[2]
+
+
+    # form.institution.choices = [(sid, sinstit) for spot in get_all_spots()]
+
+    if form.validate_on_submit():
+        print(f'institution on form: {form.choose_instit.data}')
+        print(f'Account Type on form: {form.choose_acct_type.data}')
+        print(f'Account Number on form: {form.choose_acct_number.data}')
+
+
+    return render_template("simple.html", form=form, choices=form.institution.choices)
+
+###################################################
 
 # Create Admin Page
 @app.route('/admin')

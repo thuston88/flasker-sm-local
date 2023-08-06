@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{# 
+{% for message in get_flashed_messages() %}
+
+	<div class="alert alert-warning alert-dismissible fade show" role="alert">
+	  {{ message }}
+	  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+
+{% endfor %}
+#}
+
+    <h1 class="text-center">Simple</h1>
+	<br/><br/>
+
+<main class="shadow p-3 mb-5 bg-body rounded">
+    <form method="GET", "POST">
+        {{ form.hidden_tag() }}
+
+        <div class="form-group">
+                <div class="col-md-4 offset-md-4">
+                    <label for="inputGroupInstitution" class="mb-1">Institution</label>
+                    <div class="input-group mb-4">
+                        <select name="choose_instit" class="form-select" id="inputGroupInstitution">
+                            <option selected>Select an Institution...</option>
+                            {% for choice in choices %}
+                                <option value={{ choice[0] }}>{{ choice[1] }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4 offset-md-4">
+                    <label for="inputGroupInstitution" class="mb-1">Account Type</label>
+                    <div class="input-group mb-4">
+                        <select name="choose_accttype" class="form-select" id="inputGroupAcctType">
+                            <option selected>Select an Account Type...</option>
+                            {% for choice in choices %}
+                                <option value={{ choice[0] }}>{{ choice[1] }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4 offset-md-4">
+                    <label for="inputGroupInstitution" class="mb-1">Account Number</label>
+                    <div class="input-group mb-4">
+                        <select name="choose_acctno" class="form-select" id="inputGroupAcctNo">
+                            <option selected>Select an Account Number...</option>
+                            {% for choice in choices %}
+                                <option value={{ choice[0] }}>{{ choice[1] }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+        </div>
+
+        {{ form.submit( class="btn btn-primary col-md-4 offset-md-4 py-2",type="submit") }}
+    </form>
+</main>
+
+{% endblock %}
+

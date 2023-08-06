@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, PasswordField, BooleanField, ValidationError, TextAreaField
+from wtforms import StringField, SubmitField, PasswordField, BooleanField, ValidationError, TextAreaField, Form, SelectField
 from wtforms.validators import DataRequired, EqualTo, Length
 from wtforms.widgets import TextArea
 # from flask_ckeditor import CKEditorField
@@ -26,9 +26,13 @@ class UserForm(FlaskForm):
 
 
 class SelectForm(FlaskForm):
-	institution = StringField("Institution")
-	acct_type = StringField("Account Type")
-	acct_no = StringField("Account Number")
+	institution = SelectField("Institution")
+	acct_type = SelectField("Account Type")
+	acct_no = SelectField("Account Number")
+	submit = SubmitField("Submit")
+
+class SimpleForm(FlaskForm):
+	institution = SelectField("Institution")
 	submit = SubmitField("Submit")
 
 
